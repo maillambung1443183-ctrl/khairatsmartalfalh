@@ -70,12 +70,16 @@
 
       <div id="konten-bayar" class="tab-konten" style="display:none;">
         <div class="card border-success mb-3" style="background:#f4fbf7;">
-          <div class="card-body small">
-            <h6 class="fw-bold text-success mb-2">💳 Maklumat Akaun Bank Surau:</h6>
-            <div class="mb-1"><strong>Nama Bank:</strong> BANK ISLAM MALAYSIA BERHAD</div>
-            <div class="mb-1"><strong>Nama Akaun:</strong> SURAU AL-FALAH JASIN</div>
-            <div class="mb-2"><strong>No. Akaun:</strong> <span class="fw-bold text-dark fs-6">040240100XXXXX</span></div>
-            <div class="text-danger fw-bold" style="font-size:0.8rem;">*Nota: Sila hantarkan resit pembayaran yuran tahunan kepada Bendahari berserta ID Ahli anda untuk pengesahan kemas kini status aktif.</div>
+          <div class="card-body">
+            <h6 class="fw-bold text-success mb-3 text-center">💳 MAKLUMAT AKAUN BANK (TRANSFER MANUAL)</h6>
+            <div class="p-3 bg-white rounded border mb-3 small">
+              <div class="mb-2"><strong>Nama Bank:</strong> BANK SIMPANAN NASIONAL (BSN)</div>
+              <div class="mb-2"><strong>Nama Akaun:</strong> SURAU AL FALAH TSCC</div>
+              <div class="mb-0"><strong>No. Akaun:</strong> <span class="fw-bold text-danger fs-5" style="letter-spacing: 1px;">0410041000169154</span></div>
+            </div>
+            <div class="alert alert-warning p-2 mb-0 small" style="font-size:0.8rem; line-height:1.4;">
+              <strong>* Nota Prosedur:</strong> Sila buat pindahan/transfer secara manual (Online Banking / CDM). Selesai urusan, hantarkan resit bayaran yuran tahunan tersebut terus kepada Bendahari atau AJK bertugas berserta <strong>ID Ahli Khairat</strong> anda untuk proses pengesahan status <strong>AKTIF</strong>.
+            </div>
           </div>
         </div>
       </div>
@@ -205,8 +209,8 @@
 </div>
 
 <script>
-  // Pautan Web App terbaharu anda yang telah dikemaskini secara automatik
-  const API_URL = "https://script.google.com/macros/s/AKfycbzOlfLAffhGC1OP7Ffc51dBxD_j8HY8-VgugFPBmm12Pp48hi6e6kCYfwnDUgnvzxos/exec"; 
+  // Pautan Web App terbaharu anda yang aktif
+  const API_URL = "https://script.google.com/macros/s/AKfycbwvq6WjSAiAnhCka1gtLcr5_HdlHn-ui1Lxoyce6bhuDdYPHm6xLy0a9314cN890ZYm/exec"; 
   let SESI_MEMBER_ID = "";
 
   function tukarTabAtas(tab) {
