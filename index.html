@@ -27,7 +27,6 @@
       <p class="mb-0 opacity-75 small">Surau Al-Falah, Jasin, Melaka</p>
     </div>
 
-    <!-- TABS UTAMA -->
     <div class="p-2 bg-light border-bottom d-flex justify-content-around">
       <button class="btn btn-sm btn-outline-success m-1 flex-fill" onclick="tukarMenu('login')">Log Masuk</button>
       <button class="btn btn-sm btn-outline-success m-1 flex-fill" onclick="tukarMenu('register')">Daftar Laluan</button>
@@ -36,7 +35,6 @@
 
     <div class="card-body p-4">
       
-      <!-- MANFAAT KEAHLIAN -->
       <div id="infoManfaat" class="benefit-card">
         <h6 class="fw-bold text-dark mb-2">🎁 Manfaat Keahlian Khairat Al-Falah:</h6>
         <div class="d-flex justify-content-between align-items-center">
@@ -50,7 +48,6 @@
         </ul>
       </div>
 
-      <!-- ================= FORM LOG MASUK ================= -->
       <div id="sec-login">
         <h5 class="fw-bold text-success mb-3">Log Masuk Ahli / Admin</h5>
         <div class="mb-3">
@@ -65,7 +62,6 @@
         <div class="text-center"><a href="#" class="text-decoration-none small text-muted" onclick="tukarMenu('lupa')">Terlupa Kata Laluan?</a></div>
       </div>
 
-      <!-- ================= FORM DAFTAR PASSWORD (FIRST TIME) ================= -->
       <div id="sec-register" style="display:none;">
         <h5 class="fw-bold text-success mb-3">Daftar Kata Laluan Kali Pertama</h5>
         <p class="text-muted small">Khusus untuk 110 orang ahli sedia ada untuk menetapkan kata laluan akaun anda.</p>
@@ -80,7 +76,6 @@
         <button class="btn btn-success w-100 fw-bold py-2" onclick="submitRegister()">Daftar Akaun</button>
       </div>
 
-      <!-- ================= FORM TERLUPA PASSWORD ================= -->
       <div id="sec-lupa" style="display:none;">
         <h5 class="fw-bold text-danger mb-3">Set Semula Kata Laluan</h5>
         <p class="text-muted small">Sila masukkan ID Ahli & No Telefon terdaftar dalam sistem untuk pengesahan identiti.</p>
@@ -99,7 +94,6 @@
         <button class="btn btn-danger w-100 fw-bold py-2" onclick="submitLupa()">Kemas Kini Password</button>
       </div>
 
-      <!-- ================= FORM PERMOHONAN AHLI BARU ================= -->
       <div id="sec-mohon" style="display:none;">
         <h5 class="fw-bold text-success mb-3">Borang Permohonan Ahli Baru</h5>
         <div class="mb-3">
@@ -113,7 +107,6 @@
         <button class="btn btn-success w-100 fw-bold py-2" onclick="submitMohon()">Hantar Borang</button>
       </div>
 
-      <!-- ================= DASHBOARD UTAMA AHLI ================= -->
       <div id="sec-dashboard" style="display:none;">
         <div class="text-center bg-light p-3 rounded-4 mb-4">
           <span class="text-muted small text-uppercase fw-bold" id="dashId">KAF000</span>
@@ -122,7 +115,6 @@
           <p class="small text-muted mb-0 mt-2">Tarikh Tamat Keahlian: <span class="fw-bold text-dark" id="dashTamat">-</span></p>
         </div>
 
-        <!-- BORANG WARIS & TANGGUNGAN -->
         <h5 class="fw-bold text-success mb-3 border-bottom pb-1">Maklumat Waris Utama</h5>
         <div class="mb-3">
           <label class="form-label small">Nama Penuh Waris Utama</label>
@@ -147,7 +139,6 @@
         <button class="btn btn-outline-secondary w-100 btn-sm mt-2" onclick="logout()">Log Keluar</button>
       </div>
 
-      <!-- ================= MODE ADMIN (DASHBOARD KELULUSAN) ================= -->
       <div id="sec-admin" style="display:none;">
         <h4 class="fw-bold text-dark mb-3">Panel Pengurusan Admin (Surau Al-Falah)</h4>
         <p class="text-muted small">Berikut adalah senarai jemaah baharu yang memohon masuk ke khairat kematian.</p>
@@ -174,8 +165,8 @@
 </div>
 
 <script>
-  // Pautan Web App aktif yang betul sudah dimasukkan di bawah:
-  const API_URL = "https://script.google.com/macros/s/AKfycbzFYvvvaHvxGu4SCNSwTS-gdK-HO5gbmv76-BiE_6AHRHZTrE9Dh4f7OvRewObIruE8/exec"; 
+  // Pautan Web App terkini anda sudah siap dimasukkan di bawah:
+  const API_URL = "https://script.google.com/macros/s/AKfycbzPWYiYfA2tCwlsAGCI6OleJ8RihCHH1cESX8dByxPtOwR09bvFS5jm1__OcNZCzg57/exec"; 
   let SESI_MEMBER_ID = "";
 
   function tukarMenu(menu) {
