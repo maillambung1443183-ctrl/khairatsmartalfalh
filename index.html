@@ -1,1 +1,354 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Khairat Kematian — Surau Al-Falah</title>
+  <!-- Bootstrap 5 CSS untuk paparan kemas & moden -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+    .main-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      background: #ffffff;
+    }
+    .brand-header {
+      background: linear-gradient(135deg, #198754, #0f5132);
+      color: white;
+      border-radius: 16px 16px 0 0;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .status-badge {
+      font-size: 1.25rem;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .status-aktif { background-color: #d1e7dd; color: #0f5132; }
+    .status-tamat { background-color: #f8d7da; color: #842029; }
+    .nav-tabs .nav-link {
+      color: #495057;
+      font-weight: 500;
+    }
+    .nav-tabs .nav-link.active {
+      color: #198754;
+      font-weight: 600;
+      border-bottom: 3px solid #198754;
+    }
+    .tanggungan-row {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
 
+<div class="container my-5" style="max-width: 600px;">
+  <div class="card main-card">
+    
+    <!-- HEADER PORTAL -->
+    <div class="brand-header">
+      <h2 class="fw-bold mb-1">SURAU AL-FALAH</h2>
+      <p class="mb-0 opacity-75">Sistem Maklumat Khairat Kematian</p>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="p-3 bg-light border-bottom">
+      <ul class="nav nav-tabs nav-fill border-0" id="portalTabs" role="tablist">
+        <li class="nav-item">
+          <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-sec" type="button">Portal Ahli</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-sec" type="button">Daftar Baru</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="tab-content" id="portalTabsContent">
+        
+        <!-- SEC 1: PORTAL AHLI (LOG MASUK & DASHBOARD) -->
+        <div class="tab-pane fade show active" id="login-sec">
+          
+          <!-- FORM LOG MASUK -->
+          <div id="loginFormContainer">
+            <h5 class="fw-bold mb-3 text-success">Log Masuk Ahli Sedia Ada</h5>
+            <p class="text-muted small">Sila masukkan ID Ahli anda (Contoh: KAF001) untuk menyemak status dan mengemaskini maklumat waris.</p>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">ID Ahli / No. Ahli</label>
+              <input type="text" id="memberIdInput" class="form-control form-control-lg text-uppercase" placeholder="Masukkan ID Ahli">
+            </div>
+            <button type="button" id="btnLogin" class="btn btn-success btn-lg w-100 fw-bold" onclick="prosesLogMasuk()">Log Masuk</button>
+          </div>
+
+          <!-- DASHBOARD AHLI (Disembunyikan secara lalai) -->
+          <div id="dashboardContainer" style="display: none;">
+            <div class="text-center mb-4">
+              <span class="text-muted small d-block">NO. AHLI: <strong id="dashMemberId">-</strong></span>
+              <h3 class="fw-bold my-1" id="dashNama">-</h3>
+              <div id="dashStatusBadge" class="status-badge my-2">-</div>
+              <span class="text-muted small d-block mt-1">Tarikh Tamat Keahlian: <span id="dashTarikhTamat" class="fw-semibold">-</span></span>
+            </div>
+
+            <hr>
+
+            <!-- BORANG KEMASKINI WARIS & TANGGUNGAN -->
+            <form id="formWaris" onsubmit="simpanDataWaris(event)">
+              <h5 class="fw-bold text-success mb-3">1. Maklumat Waris Utama</h5>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Nama Penuh Waris</label>
+                <input type="text" id="warisNama" class="form-control text-uppercase" required placeholder="NAMA SEPERTI DALAM IC">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Hubungan Dengan Ahli</label>
+                <select id="warisHubungan" class="form-select" required>
+                  <option value="">-- SILA PILIH --</option>
+                  <option value="ISTERI">ISTERI</option>
+                  <option value="SUAMI">SUAMI</option>
+                  <option value="ANAK">ANAK</option>
+                  <option value="IBU">IBU</option>
+                  <option value="BAPA">BAPA</option>
+                  <option value="ADIK-BERADIK">ADIK-BERADIK</option>
+                </select>
+              </div>
+
+              <h5 class="fw-bold text-success mt-4 mb-3">2. Senarai Tanggungan (Maksimum 6 Orang)</h5>
+              <p class="text-muted small mb-3">Tanggungan di bawah kariah/rumah yang sama sahaja.</p>
+              
+              <div id="senaraiTanggunganContainer">
+                <!-- Row Tanggungan akan dijana secara dinamik oleh JavaScript (Max 6) -->
+              </div>
+
+              <button type="submit" id="btnSimpanWaris" class="btn btn-primary btn-lg w-100 fw-bold mt-4">Simpan & Kemaskini Data</button>
+              <button type="button" class="btn btn-outline-secondary w-100 mt-2 btn-sm" onclick="logout()">Log Keluar Portal</button>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- SEC 2: BORANG PENDAFTARAN AHLI BARU -->
+        <div class="tab-pane fade" id="register-sec">
+          <h5 class="fw-bold mb-3 text-success">Borang Permohonan Ahli Baru</h5>
+          <p class="text-muted small">Sila isi maklumat di bawah. Setiausaha akan menghubungi anda selepas pengesahan pembayaran dibuat.</p>
+          
+          <form id="formDaftarBaru" onsubmit="daftarAhliBaru(event)">
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Nama Penuh Pemohon</label>
+              <input type="text" id="regNama" class="form-control text-uppercase" required placeholder="NAMA PENUH SEPERTI DALAM IC">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Nombor Telefon (WhatsApp)</label>
+              <input type="tel" id="regTel" class="form-control" required placeholder="CONTOH: 0123456789">
+            </div>
+            <button type="submit" id="btnDaftar" class="btn btn-success btn-lg w-100 fw-bold mt-3">Hantar Permohonan</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- JAVASCRIPT LOGIK APPLIKASI -->
+<script>
+  // PENTING: Sila pastikan pautan URL Web App Google Apps Script anda yang aktif berada di sini
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzV4BB3BZX9vVVPfSVGNB5QY4RBCv3X9_TdhAqXCHvXR8CmFvyWlXk4u-bxkDQpb-7S/exec";
+
+  let dataAhliSemasa = null;
+
+  // 1. PROSES LOG MASUK AHLI (GET DATA)
+  function prosesLogMasuk() {
+    const memberId = document.getElementById("memberIdInput").value.trim();
+    if (!memberId) {
+      alert("Sila masukkan No. Ahli anda terlebih dahulu!");
+      return;
+    }
+
+    const btn = document.getElementById("btnLogin");
+    btn.disabled = true;
+    btn.innerText = "Menyemak Pangkalan Data...";
+
+    fetch(`${GOOGLE_SCRIPT_URL}?action=getAhli&memberId=${encodeURIComponent(memberId)}`)
+      .then(response => response.json())
+      .then(res => {
+        btn.disabled = false;
+        btn.innerText = "Log Masuk";
+
+        if (res.status === "FOUND") {
+          dataAhliSemasa = res.data;
+          bukaDashboard(res.data);
+        } else {
+          alert("Maaf, ID Ahli tidak dijumpai. Sila pastikan ejaan betul atau hubungi Setiausaha.");
+        }
+      })
+      .catch(err => {
+        btn.disabled = false;
+        btn.innerText = "Log Masuk";
+        console.error(err);
+        alert("Ralat sambungan ke pangkalan data. Sila cuba lagi.");
+      });
+  }
+
+  // 2. PAPARKAN DATA KEAHLIAN & JANA STRUKTUR 6 TANGGUNGAN
+  function bukaDashboard(ahli) {
+    document.getElementById("loginFormContainer").style.display = "none";
+    document.getElementById("dashboardContainer").style.display = "block";
+
+    document.getElementById("dashMemberId").innerText = ahli.memberId;
+    document.getElementById("dashNama").innerText = ahli.nama;
+    document.getElementById("dashTarikhTamat").innerText = ahli.tarikhTamat;
+
+    const badge = document.getElementById("dashStatusBadge");
+    badge.innerText = ahli.status;
+    if (ahli.status.toUpperCase() === "AKTIF") {
+      badge.className = "status-badge status-aktif";
+    } else {
+      badge.className = "status-badge status-tamat";
+    }
+
+    // Set nilai waris sedia ada jika sudah pernah diisi
+    if (ahli.warisUtama && ahli.warisUtama.nama) {
+      document.getElementById("warisNama").value = ahli.warisUtama.nama;
+      document.getElementById("warisHubungan").value = ahli.warisUtama.hubungan;
+    } else {
+      document.getElementById("warisNama").value = "";
+      document.getElementById("warisHubungan").value = "";
+    }
+
+    // Jana ruangan input untuk tepat 6 orang tanggungan
+    const container = document.getElementById("senaraiTanggunganContainer");
+    container.innerHTML = "";
+
+    for (let i = 0; i < 6; i++) {
+      const dataLama = ahli.tanggungan[i] || { nama: "", hubungan: "" };
+      
+      const row = document.createElement("div");
+      row.className = "tanggungan-row row g-2 align-items-center";
+      row.innerHTML = `
+        <div class="col-1 text-center fw-bold text-muted small">${i + 1}</div>
+        <div class="col-7">
+          <input type="text" class="form-control form-control-sm text-uppercase input-tang-nama" value="${dataLama.nama}" placeholder="Nama Tanggungan">
+        </div>
+        <div class="col-4">
+          <select class="form-select form-select-sm input-tang-hub">
+            <option value="">- Hubungan -</option>
+            <option value="ISTERI" ${dataLama.hubungan === 'ISTERI' ? 'selected' : ''}>ISTERI</option>
+            <option value="ANAK" ${dataLama.hubungan === 'ANAK' ? 'selected' : ''}>ANAK</option>
+            <option value="IBU" ${dataLama.hubungan === 'IBU' ? 'selected' : ''}>IBU</option>
+            <option value="BAPA" ${dataLama.hubungan === 'BAPA' ? 'selected' : ''}>BAPA</option>
+            <option value="LAIN-LAIN" ${dataLama.hubungan === 'LAIN-LAIN' ? 'selected' : ''}>LAIN-LAIN</option>
+          </select>
+        </div>
+      `;
+      container.appendChild(row);
+    }
+  }
+
+  // 3. SIMPAN DATA WARIS & TANGGUNGAN KE GOOGLE SHEETS (POST)
+  function simpanDataWaris(event) {
+    event.preventDefault();
+    
+    const btn = document.getElementById("btnSimpanWaris");
+    btn.disabled = true;
+    btn.innerText = "Menghantar Data Ke Google Sheets...";
+
+    // Kumpul senarai tanggungan yang diisi sahaja
+    const tanggunganList = [];
+    const rowsNama = document.querySelectorAll(".input-tang-nama");
+    const rowsHub = document.querySelectorAll(".input-tang-hub");
+
+    for (let i = 0; i < 6; i++) {
+      const namaVal = rowsNama[i].value.trim().toUpperCase();
+      const hubVal = rowsHub[i].value;
+      if (namaVal) {
+        tanggunganList.push({ nama: namaVal, hubungan: hubVal || "LAIN-LAIN" });
+      }
+    }
+
+    const payload = {
+      action: "kemaskiniWaris",
+      memberId: dataAhliSemasa.memberId,
+      warisUtama: document.getElementById("warisNama").value.trim().toUpperCase(),
+      warisHubungan: document.getElementById("warisHubungan").value,
+      tanggungan: tanggunganList
+    };
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors", // Mengelakkan masalah CORS cross-origin sekatan
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      btn.disabled = false;
+      btn.innerText = "Simpan & Kemaskini Data";
+      alert("Alhamdulillah! Data waris dan tanggungan berjaya disimpan ke dalam sistem Google Sheets.");
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.innerText = "Simpan & Kemaskini Data";
+      console.error(err);
+      alert("Gagal menghantar data. Sila periksa sambungan internet.");
+    });
+  }
+
+  // 4. BORANG PENDAFTARAN AHLI BARU (POST)
+  function daftarAhliBaru(event) {
+    event.preventDefault();
+
+    const btn = document.getElementById("btnDaftar");
+    btn.disabled = true;
+    btn.innerText = "Menghantar Permohonan...";
+
+    const payload = {
+      action: "daftarAhliBaru",
+      nama: document.getElementById("regNama").value.trim().toUpperCase(),
+      tel: document.getElementById("regTel").value.trim()
+    };
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      btn.disabled = false;
+      btn.innerText = "Hantar Permohonan";
+      document.getElementById("formDaftarBaru").reset();
+      alert("Permohonan anda telah berjaya dihantar! Sila tunggu maklum balas daripada Setiausaha untuk pengesahan ID ahli baharu.");
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.innerText = "Hantar Permohonan";
+      console.error(err);
+      alert("Ralat sistem semasa mendaftar. Sila cuba lagi.");
+    });
+  }
+
+  // 5. LOG KELUAR PORTAL
+  function logout() {
+    dataAhliSemasa = null;
+    document.getElementById("memberIdInput").value = "";
+    document.getElementById("loginFormContainer").style.display = "block";
+    document.getElementById("dashboardContainer").style.display = "none";
+  }
+</script>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
