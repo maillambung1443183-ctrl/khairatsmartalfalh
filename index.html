@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Khairat Surau Al-Falah</title>
+  <title>Pembentangan AGM Khairat Surau Al-Falah</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; background-color: #f4f7f6; color: #333; }
-    .main-card { border: none; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); background: #fff; overflow: hidden; }
-    .brand-header { background: linear-gradient(135deg, #1f5f3e, #0d3822); color: white; padding: 25px; text-align: center; }
-    .benefit-card { background: #fff9db; border: 1px dashed #fab005; border-radius: 12px; padding: 15px; margin-bottom: 20px; }
-    .info-box { background: #eef1f6; border-left: 4px solid #1f5f3e; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
-    .status-badge { font-size: 1.1rem; padding: 6px 16px; border-radius: 50px; font-weight: 600; display: inline-block; }
-    .status-aktif { background-color: #d1e7dd; color: #0f5132; }
-    .status-tamat { background-color: #f8d7da; color: #842029; }
-    .tanggungan-row { background: #f8f9fa; border-radius: 8px; padding: 10px; margin-bottom: 8px; }
-    .nav-tabs-custom { background: #f8f9fa; border-bottom: 2px solid #dee2e6; }
-    .nav-tabs-custom .btn { border-radius: 0; border: none; padding: 12px; font-weight: 500; color: #555; }
+    .main-card { border: none; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); background: #fff; overflow: hidden; }
+    .brand-header { background: linear-gradient(135deg, #1f5f3e, #0d3822); color: white; padding: 25px 20px; text-align: center; }
+    .benefit-card { background: #fff9db; border: 1px dashed #fab005; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+    .info-box { background: #eef1f6; border-left: 4px solid #1f5f3e; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+    .nav-tabs-custom { background: #f8f9fa; border-bottom: 2px solid #dee2e6; overflow-x: auto; white-space: nowrap; }
+    .nav-tabs-custom .btn { border-radius: 0; border: none; padding: 12px 14px; font-weight: 500; color: #555; font-size: 0.85rem; }
     .nav-tabs-custom .btn.active { background: #fff; color: #1f5f3e; border-bottom: 3px solid #1f5f3e; font-weight: 600; }
-    .stat-box { background: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 12px; padding: 12px; margin-bottom: 15px; }
+    .stat-card { border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #e0e0e0; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .usul-item { background: #f8f9fa; border-left: 4px solid #0d6efd; padding: 12px; border-radius: 8px; margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -27,444 +24,234 @@
 <div class="container my-4" style="max-width: 650px;">
   <div class="card main-card">
     
+    <!-- HEADER -->
     <div class="brand-header">
+      <span class="badge bg-warning text-dark mb-2 fw-semibold">MESYUARAT AGUNG TAHUNAN (AGM)</span>
       <h3 class="fw-bold mb-1">KHAIRAT KEMATIAN AL-FALAH</h3>
-      <p class="mb-0 opacity-75 small">Surau Al-Falah, Jasin, Melaka</p>
+      <p class="mb-0 opacity-75 small">Surau Al-Falah, Taman Seri Chinchin, Jasin, Melaka</p>
     </div>
 
-    <div class="d-flex nav-tabs-custom text-center">
-      <button id="tab-manfaat" class="flex-fill btn active" onclick="tukarTabAtas('manfaat')">🎁 Manfaat</button>
-      <button id="tab-ajk" class="flex-fill btn" onclick="tukarTabAtas('ajk')">👥 Maklumat AJK</button>
-      <button id="tab-bayar" class="flex-fill btn" onclick="tukarTabAtas('bayar')">💰 Pembayaran</button>
+    <!-- SKRIN KATA LALUAN (GERBANG AKSES AHLI) -->
+    <div id="skrin-kunci" class="card-body p-4 text-center">
+      <div class="my-3">
+        <div class="fs-1 mb-2">🔒</div>
+        <h5 class="fw-bold text-success">Akses Eksklusif Ahli Khairat</h5>
+        <p class="text-muted small">Sila masukkan kata laluan pembentangan yang diberikan oleh AJK Surau untuk melihat laporan mesyuarat.</p>
+      </div>
+      <div class="mx-auto" style="max-width: 320px;">
+        <input type="password" id="inputPassMesyuarat" class="form-control text-center fw-bold mb-3" placeholder="Masukkan Kata Laluan" onkeypress="if(event.key === 'Enter') semakAkses()">
+        <button class="btn btn-success w-100 fw-bold py-2" onclick="semakAkses()">Buka Pembentangan</button>
+        <p id="mesejRalat" class="text-danger small mt-2 fw-semibold" style="display:none;">Kata laluan tidak sah. Sila cuba lagi.</p>
+      </div>
     </div>
 
-    <div class="card-body p-4">
+    <!-- KANDUNGAN PEMBENTANGAN (TERSEMBUNYI SEHINGGA LOG MASUK) -->
+    <div id="kandungan-pembentangan" style="display:none;">
       
-      <div id="konten-manfaat" class="tab-konten">
-        <div class="benefit-card">
-          <h6 class="fw-bold text-dark mb-2">🎁 Skim Perlindungan Khairat Al-Falah:</h6>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="small text-muted">Jumlah Manfaat Keseluruhan:</span>
-            <span class="fw-bold text-success fs-5">RM 1,000.00</span>
-          </div>
-          <hr class="my-2">
-          <ul class="mb-0 small text-muted ps-3">
-            <li><strong>RM 750.00</strong> : Kos Penyediaan & Pengurusan Jenazah</li>
-            <li><strong>RM 250.00</strong> : Sumbangan Tunai Segera Kepada Waris Terdaftar</li>
-          </ul>
-        </div>
+      <!-- MENU NAVIGASI SLAID -->
+      <div class="d-flex nav-tabs-custom text-center">
+        <button id="tab-laporan" class="flex-fill btn active" onclick="tukarSlaid('laporan')">📊 Laporan & Kewangan</button>
+        <button id="tab-manfaat" class="flex-fill btn" onclick="tukarSlaid('manfaat')">🎁 Manfaat</button>
+        <button id="tab-ajk" class="flex-fill btn" onclick="tukarSlaid('ajk')">👥 Senarai AJK</button>
+        <button id="tab-bayar" class="flex-fill btn" onclick="tukarSlaid('bayar')">💰 Akaun & Yuran</button>
+        <button id="tab-usul" class="flex-fill btn" onclick="tukarSlaid('usul')">📝 Agenda & Usul</button>
       </div>
 
-      <div id="konten-ajk" class="tab-konten" style="display:none;">
-        <div class="info-box">
-          <h6 class="fw-bold text-success mb-3">📋 Jawatankuasa Khairat Surau Al-Falah</h6>
-          <div class="small">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <strong>Pengerusi:</strong> 
-              <span>En Awg Mohd Fauzi (<a href="tel:+601133332520" class="text-decoration-none fw-bold text-success">+60 11-3333 2520</a>)</span>
+      <div class="card-body p-4">
+
+        <!-- SLAID 1: LAPORAN & KEWANGAN -->
+        <div id="slaid-laporan" class="slaid-konten">
+          <h6 class="fw-bold text-success mb-3">📊 Ringkasan Prestasi & Keahlian Semasa</h6>
+          <div class="row g-2 mb-4">
+            <div class="col-6">
+              <div class="stat-card" style="background:#e8f5e9; border-color:#c8e6c9;">
+                <div class="small text-muted">Jumlah Ahli Aktif</div>
+                <div class="fs-4 fw-bold text-success">145 Ketua</div>
+                <div class="text-muted" style="font-size:0.7rem;">Keluarga Berdaftar</div>
+              </div>
             </div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <strong>Setiausaha:</strong> 
-              <span>En Ismail Bin Ishak (<a href="tel:+60177000242" class="text-decoration-none fw-bold text-success">+60 17-700 0242</a>)</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <strong>Bendahari:</strong> 
-              <span>En Mohd Zan Bin Mohd Nor (<a href="tel:+60193652082" class="text-decoration-none fw-bold text-success">+60 19-365 2082</a>)</span>
+            <div class="col-6">
+              <div class="stat-card" style="background:#fff3cd; border-color:#ffe69c;">
+                <div class="small text-muted">Tuntutan Kematian</div>
+                <div class="fs-4 fw-bold text-dark">4 Kes</div>
+                <div class="text-muted" style="font-size:0.7rem;">Tahun Semasa</div>
+              </div>
             </div>
           </div>
-          <hr class="my-2">
-          <p class="mb-0 text-muted text-center" style="font-size:0.75rem;">Sila klik pada nombor telefon untuk membuat panggilan terus jika ada urusan kecemasan kariah.</p>
+
+          <h6 class="fw-bold text-success mb-2">💵 Penyata Ringkas Tabung Khairat</h6>
+          <div class="table-responsive">
+            <table class="table table-bordered small mb-2">
+              <tbody>
+                <tr>
+                  <td class="bg-light">Baki Bawa Ke Hadapan</td>
+                  <td class="text-end fw-semibold">RM 12,450.00</td>
+                </tr>
+                <tr>
+                  <td class="bg-light">(+) Kutipan Yuran & Pendaftaran</td>
+                  <td class="text-end text-success fw-semibold">+ RM 7,350.00</td>
+                </tr>
+                <tr>
+                  <td class="bg-light">(-) Pengurusan Jenazah & Sumbangan Waris (4 Kes)</td>
+                  <td class="text-end text-danger fw-semibold">- RM 4,000.00</td>
+                </tr>
+                <tr class="table-success">
+                  <td class="fw-bold">BAKI TERKINI DI BANK (BSN)</td>
+                  <td class="text-end fw-bold fs-6 text-success">RM 15,800.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-muted mb-0" style="font-size:0.75rem;">* Laporan kewangan diaudit dan disahkan oleh Bendahari Biro Khairat Kematian Surau Al-Falah.</p>
         </div>
-      </div>
 
-      <div id="konten-bayar" class="tab-konten" style="display:none;">
-        <div class="card border-success mb-3" style="background:#f4fbf7;">
-          <div class="card-body">
-            <h6 class="fw-bold text-success mb-3 text-center">💳 MAKLUMAT AKAUN BANK (TRANSFER MANUAL)</h6>
-            
-            <div class="p-2 mb-3 rounded border text-center small bg-white shadow-sm">
-              <div class="text-dark fw-bold">💰 Yuran Sumbangan Tahunan: RM 50.00</div>
-              <div class="text-success fw-bold" style="font-size:0.85rem;">➕ Tambahan Pendaftaran Ahli Baru: RM 10.00</div>
+        <!-- SLAID 2: MANFAAT -->
+        <div id="slaid-manfaat" class="slaid-konten" style="display:none;">
+          <div class="benefit-card">
+            <h6 class="fw-bold text-dark mb-2">🎁 Skim Perlindungan Khairat Al-Falah:</h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="small text-muted">Jumlah Manfaat Keseluruhan:</span>
+              <span class="fw-bold text-success fs-5">RM 1,000.00</span>
             </div>
+            <hr class="my-2">
+            <ul class="mb-0 small text-muted ps-3">
+              <li class="mb-1"><strong>RM 750.00</strong> : Kos Penyediaan & Pengurusan Jenazah (Kafan, Mandi, Liang Lahad & Van Jenazah)</li>
+              <li><strong>RM 250.00</strong> : Sumbangan Tunai Segera Kepada Waris Terdaftar</li>
+            </ul>
+          </div>
+          <div class="info-box small">
+            <strong>📌 Kelayakan Perlindungan:</strong>
+            <p class="mb-0 mt-1 text-muted">Meliputi Ketua Keluarga (Ahli), Pasangan (Suami/Isteri), serta anak-anak/tanggungan yang belum berkahwin dan tinggal sebumbung seperti yang didaftarkan dalam rekod surau.</p>
+          </div>
+        </div>
 
-            <div class="p-3 bg-white rounded border mb-3 small">
-              <div class="mb-2"><strong>Nama Bank:</strong> BANK SIMPANAN NASIONAL (BSN)</div>
-              <div class="mb-2"><strong>Nama Akaun:</strong> SURAU AL FALAH TSCC</div>
-              <div class="mb-0"><strong>No. Akaun:</strong> <span class="fw-bold text-danger fs-5" style="letter-spacing: 1px;">0410041000169154</span></div>
+        <!-- SLAID 3: MAKLUMAT AJK -->
+        <div id="slaid-ajk" class="slaid-konten" style="display:none;">
+          <div class="info-box">
+            <h6 class="fw-bold text-success mb-3">📋 Jawatankuasa Khairat Surau Al-Falah</h6>
+            <div class="small">
+              <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                <div>
+                  <span class="text-muted d-block" style="font-size:0.75rem;">Pengerusi</span>
+                  <strong>En Awg Mohd Fauzi</strong>
+                </div>
+                <a href="tel:+601133332520" class="btn btn-sm btn-outline-success fw-bold">📞 +60 11-3333 2520</a>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                <div>
+                  <span class="text-muted d-block" style="font-size:0.75rem;">Setiausaha</span>
+                  <strong>En Ismail Bin Ishak</strong>
+                </div>
+                <a href="tel:+60177000242" class="btn btn-sm btn-outline-success fw-bold">📞 +60 17-700 0242</a>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="text-muted d-block" style="font-size:0.75rem;">Bendahari</span>
+                  <strong>En Mohd Zan Bin Mohd Nor</strong>
+                </div>
+                <a href="tel:+60193652082" class="btn btn-sm btn-outline-success fw-bold">📞 +60 19-365 2082</a>
+              </div>
             </div>
-            <div class="alert alert-warning p-2 mb-0 small" style="font-size:0.8rem; line-height:1.4;">
-              <strong>* Nota Prosedur:</strong> Sila buat pindahan manual (Online Banking / CDM). Selesai urusan, hantarkan resit bayaran yuran terus kepada Bendahari atau AJK bertugas bersama <strong>ID Ahli Khairat</strong> anda untuk pengesahan status <strong>AKTIF</strong>.
+            <hr class="my-3">
+            <p class="mb-0 text-muted text-center" style="font-size:0.75rem;">Sila klik pada butang nombor telefon untuk membuat panggilan terus jika berlaku kematian atau urusan kecemasan kariah.</p>
+          </div>
+        </div>
+
+        <!-- SLAID 4: PEMBAYARAN & AKAUN -->
+        <div id="slaid-bayar" class="slaid-konten" style="display:none;">
+          <div class="card border-success mb-0" style="background:#f4fbf7;">
+            <div class="card-body">
+              <h6 class="fw-bold text-success mb-3 text-center">💳 MAKLUMAT AKAUN BANK RASMI</h6>
+              
+              <div class="p-2 mb-3 rounded border text-center small bg-white shadow-sm">
+                <div class="text-dark fw-bold">💰 Yuran Sumbangan Tahunan: RM 50.00</div>
+                <div class="text-success fw-bold" style="font-size:0.85rem;">➕ Pendaftaran Ahli Baru (Sekali Sahaja): RM 10.00</div>
+              </div>
+
+              <div class="p-3 bg-white rounded border mb-3 small">
+                <div class="mb-2"><strong>Nama Bank:</strong> BANK SIMPANAN NASIONAL (BSN)</div>
+                <div class="mb-2"><strong>Nama Akaun:</strong> SURAU AL FALAH TSCC</div>
+                <div class="mb-0"><strong>No. Akaun:</strong> <span class="fw-bold text-danger fs-5" style="letter-spacing: 1px;">0410041000169154</span></div>
+              </div>
+              <div class="alert alert-warning p-2 mb-0 small" style="font-size:0.8rem; line-height:1.4;">
+                <strong>* Nota Prosedur:</strong> Sila buat pindahan manual (Online Banking / CDM) dan hantarkan resit bayaran terus kepada Bendahari atau Setiausaha untuk pengemaskinian rekod keahlian tahunan.
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- SLAID 5: AGENDA & USUL MESYUARAT -->
+        <div id="slaid-usul" class="slaid-konten" style="display:none;">
+          <h6 class="fw-bold text-success mb-3">📝 Agenda & Cadangan Usul Mesyuarat</h6>
+          
+          <div class="usul-item small">
+            <div class="fw-bold text-primary mb-1">Agenda 1: Pengesahan Minit Mesyuarat Agung Lalu</div>
+            <p class="mb-0 text-muted">Membentang dan mengesahkan minit mesyuarat agung tahunan yang terdahulu tanpa pindaan.</p>
+          </div>
+
+          <div class="usul-item small">
+            <div class="fw-bold text-primary mb-1">Agenda 2: Pembentangan Laporan Kewangan</div>
+            <p class="mb-0 text-muted">Membentang dan meluluskan penyata kewangan Biro Khairat Kematian berakhir tahun semasa.</p>
+          </div>
+
+          <div class="usul-item small" style="border-left-color: #198754;">
+            <div class="fw-bold text-success mb-1">Usul 1: Kemas Kini Rekod Waris & Tanggungan</div>
+            <p class="mb-0 text-muted">Mewajibkan semua ahli mengemas kini maklumat nombor telefon waris terkini bagi melancarkan urusan tuntutan kecemasan.</p>
+          </div>
+
+          <div class="usul-item small" style="border-left-color: #198754;">
+            <div class="fw-bold text-success mb-1">Usul 2: Hal-Hal Lain & Cadangan Ahli</div>
+            <p class="mb-0 text-muted">Perbincangan terbuka melibatkan kebajikan kariah dan penambahbaikan pengurusan jenazah surau.</p>
+          </div>
+        </div>
+
+        <hr class="my-3">
+        <div class="text-center">
+          <button class="btn btn-sm btn-outline-secondary" onclick="kunciSemula()">🔒 Kunci Paparan</button>
+        </div>
+
       </div>
-
-      <hr class="my-3">
-
-      <div id="menuAksesSistem" class="mb-4 text-center bg-light p-2 rounded-3">
-        <button class="btn btn-sm btn-success m-1" onclick="tukarMenu('login')">Log Masuk</button>
-        <button class="btn btn-sm btn-outline-secondary m-1" onclick="tukarMenu('register')">Daftar Laluan Kali Pertama</button>
-        <button class="btn btn-sm btn-outline-secondary m-1" onclick="tukarMenu('mohon')">Mohon Ahli Baru</button>
-      </div>
-
-      <div id="sec-login">
-        <h5 class="fw-bold text-success mb-3">Log Masuk Ahli / Admin</h5>
-        <div class="mb-3">
-          <label class="form-label small">ID Ahli (Contoh: KAF001 / 'admin')</label>
-          <input type="text" id="logId" class="form-control text-uppercase" placeholder="Masukkan ID">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">Kata Laluan (Password)</label>
-          <input type="password" id="logPass" class="form-control" placeholder="******">
-        </div>
-        <button class="btn btn-success w-100 fw-bold py-2 mb-3" id="btnLogin" onclick="submitLogin()">Masuk Portal</button>
-        <div class="text-center"><a href="#" class="text-decoration-none small text-muted" onclick="tukarMenu('lupa')">Terlupa Kata Laluan?</a></div>
-      </div>
-
-      <div id="sec-register" style="display:none;">
-        <h5 class="fw-bold text-success mb-3">Daftar Kata Laluan Kali Pertama</h5>
-        <p class="text-muted small">Khusus untuk ahli sedia ada bagi menetapkan kata laluan keselamatan akaun anda.</p>
-        <div class="mb-3">
-          <label class="form-label small">ID Ahli Anda (Cth: KAF001)</label>
-          <input type="text" id="regId" class="form-control text-uppercase" placeholder="KAFXXX">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">Cipta Kata Laluan Baharu</label>
-          <input type="password" id="regPass" class="form-control" placeholder="Cipta password minimum 6 aksara">
-        </div>
-        <button class="btn btn-success w-100 fw-bold py-2" id="btnRegister" onclick="submitRegister()">Daftar Akaun</button>
-      </div>
-
-      <div id="sec-lupa" style="display:none;">
-        <h5 class="fw-bold text-danger mb-3">Set Semula Kata Laluan</h5>
-        <p class="text-muted small">Sila masukkan ID Ahli & No Telefon terdaftar dalam sistem untuk pengesahan identiti.</p>
-        <div class="mb-3">
-          <label class="form-label small">ID Ahli</label>
-          <input type="text" id="lupaId" class="form-control text-uppercase" placeholder="KAFXXX">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">No. Telefon Terdaftar (Tanpa '-')</label>
-          <input type="tel" id="lupaTel" class="form-control" placeholder="0123456789">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">Kata Laluan Baharu</label>
-          <input type="password" id="lupaNewPass" class="form-control" placeholder="Masukkan password baru">
-        </div>
-        <button class="btn btn-danger w-100 fw-bold py-2" id="btnLupa" onclick="submitLupa()">Kemas Kini Password</button>
-      </div>
-
-      <div id="sec-mohon" style="display:none;">
-        <h5 class="fw-bold text-success mb-3">Borang Permohonan Ahli Baru</h5>
-        <div class="mb-3">
-          <label class="form-label small">Nama Penuh Pemohon</label>
-          <input type="text" id="mohonNama" class="form-control text-uppercase" placeholder="NAMA DALAM IC">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">Nombor Telefon (WhatsApp)</label>
-          <input type="tel" id="mohonTel" class="form-control" placeholder="01XXXXXXXX">
-        </div>
-        <button class="btn btn-success w-100 fw-bold py-2" id="btnMohon" onclick="submitMohon()">Hantar Borang</button>
-      </div>
-
-      <div id="sec-dashboard" style="display:none;">
-        
-        <div class="stat-box d-flex justify-content-between align-items-center">
-          <span class="small text-success fw-bold">👥 Jumlah Keseluruhan Ahli Aktif Semasa:</span>
-          <span class="badge bg-success fs-6" id="totalAhliAktif">Memuatkan...</span>
-        </div>
-
-        <div class="text-center bg-light p-3 rounded-4 mb-4">
-          <span class="text-muted small text-uppercase fw-bold" id="dashId">KAF000</span>
-          <h4 class="fw-bold my-1 text-dark" id="dashNama">NAMA AHLI</h4>
-          <div id="dashStatus" class="status-badge my-1">AKTIF</div>
-          <p class="small text-muted mb-0 mt-2">Tarikh Tamat Keahlian: <span class="fw-bold text-dark" id="dashTamat">-</span></p>
-        </div>
-
-        <h5 class="fw-bold text-success mb-3 border-bottom pb-1">Maklumat Waris Utama</h5>
-        <div class="mb-3">
-          <label class="form-label small">Nama Penuh Waris Utama</label>
-          <input type="text" id="warisNama" class="form-control text-uppercase" placeholder="NAMA WARIS">
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">Hubungan</label>
-          <select id="warisHubungan" class="form-select">
-            <option value="">-- PILIH --</option>
-            <option value="ISTERI">ISTERI</option>
-            <option value="SUAMI">SUAMI</option>
-            <option value="ANAK">ANAK</option>
-            <option value="IBU">IBU</option>
-            <option value="BAPA">BAPA</option>
-          </select>
-        </div>
-
-        <h5 class="fw-bold text-success mt-4 mb-2 border-bottom pb-1">Senarai Tanggungan (Maks 6)</h5>
-        <div id="tanggunganContainer"></div>
-
-        <button class="btn btn-primary w-100 fw-bold py-2 mt-4" id="btnWaris" onclick="submitWaris()">Simpan Maklumat Waris & Tanggungan</button>
-        <button class="btn btn-outline-secondary w-100 btn-sm mt-2" onclick="logout()">Log Keluar</button>
-      </div>
-
-      <div id="sec-admin" style="display:none;">
-        <h4 class="fw-bold text-dark mb-3">Panel Pengurusan Admin (Surau Al-Falah)</h4>
-        <p class="text-muted small">Berikut adalah senarai jemaah baharu yang memohon masuk ke khairat kematian.</p>
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped small">
-            <thead class="table-dark">
-              <tr>
-                <th>Tarikh</th>
-                <th>Nama Pemohon</th>
-                <th>Telefon</th>
-                <th>Tindakan</th>
-              </tr>
-            </thead>
-            <tbody id="adminTableBody">
-              <tr><td colspan="4" class="text-center">Memuatkan data permohonan...</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="btn btn-secondary w-100 btn-sm mt-3" onclick="logout()">Log Keluar Admin</button>
-      </div>
-
     </div>
+
   </div>
 </div>
 
 <script>
-  // Pautan Web App baharu milik abang
-  const API_URL = "https://script.google.com/macros/s/AKfycbw5CrLooEOjUr54TmWlAvlfsZo-OI2zydxRz2MS4qjA_IOU5zv9sw09hSb_NOja8KAv/exec"; 
-  let SESI_MEMBER_ID = "";
+  // TUKAR KATA LALUAN MESYUARAT DI SINI
+  const PASSWORD_MESYUARAT = "ALFALAH2026";
 
-  function tukarTabAtas(tab) {
-    document.getElementById("konten-manfaat").style.display = tab === 'manfaat' ? 'block' : 'none';
-    document.getElementById("konten-ajk").style.display = tab === 'ajk' ? 'block' : 'none';
-    document.getElementById("konten-bayar").style.display = tab === 'bayar' ? 'block' : 'none';
-    
-    document.getElementById("tab-manfaat").classList.remove('active');
-    document.getElementById("tab-ajk").classList.remove('active');
-    document.getElementById("tab-bayar").classList.remove('active');
-    document.getElementById("tab-" + tab).classList.add('active');
-  }
+  function semakAkses() {
+    const input = document.getElementById("inputPassMesyuarat").value.trim().toUpperCase();
+    const ralat = document.getElementById("mesejRalat");
 
-  function tukarMenu(menu) {
-    document.getElementById("sec-login").style.display = menu === 'login' ? 'block' : 'none';
-    document.getElementById("sec-register").style.display = menu === 'register' ? 'block' : 'none';
-    document.getElementById("sec-lupa").style.display = menu === 'lupa' ? 'block' : 'none';
-    document.getElementById("sec-mohon").style.display = menu === 'mohon' ? 'block' : 'none';
-    document.getElementById("sec-dashboard").style.display = menu === 'dashboard' ? 'block' : 'none';
-    document.getElementById("sec-admin").style.display = menu === 'admin' ? 'block' : 'none';
-    
-    if(menu === 'dashboard' || menu === 'admin') {
-      document.querySelector('.nav-tabs-custom').style.setProperty('display', 'none', 'important');
-      document.getElementById('konten-manfaat').style.display = 'none';
-      document.getElementById('konten-ajk').style.display = 'none';
-      document.getElementById('konten-bayar').style.display = 'none';
-      document.getElementById('menuAksesSistem').style.display = 'none';
+    if (input === PASSWORD_MESYUARAT) {
+      ralat.style.display = "none";
+      document.getElementById("skrin-kunci").style.display = "none";
+      document.getElementById("kandungan-pembentangan").style.display = "block";
     } else {
-      document.querySelector('.nav-tabs-custom').style.setProperty('display', 'flex', 'important');
-      tukarTabAtas('manfaat');
-      document.getElementById('menuAksesSistem').style.display = 'block';
+      ralat.style.display = "block";
     }
   }
 
-  function submitLogin() {
-    let id = document.getElementById("logId").value.trim();
-    let pass = document.getElementById("logPass").value.trim();
-    if(!id || !pass) return alert("Sila isi ID dan Password!");
-    
-    let btn = document.getElementById("btnLogin");
-    btn.disabled = true; btn.innerText = "Sila tunggu...";
-
-    fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({ action: "login", memberId: id, password: pass })
-    })
-    .then(r => r.json())
-    .then(res => {
-      btn.disabled = false; btn.innerText = "Masuk Portal";
-      if(res.status === "ADMIN") {
-        tukarMenu('admin');
-        fetchAdminData();
-      } else if(res.status === "SUCCESS") {
-        SESI_MEMBER_ID = res.user.memberId;
-        tukarMenu('dashboard');
-        loadDashboard(res.user, res.waris);
-        // Mengira statistik ahli aktif secara dinamik dari sheet
-        ambilJumlahAhliAktifRealtime();
-      } else if(res.status === "WRONG_PASS") {
-        alert("Kata laluan salah!");
-      } else {
-        alert("ID tidak dijumpai atau akaun belum didaftarkan password!");
-      }
-    }).catch(() => { btn.disabled = false; btn.innerText = "Masuk Portal"; alert("Masalah sambungan!"); });
+  function kunciSemula() {
+    document.getElementById("inputPassMesyuarat").value = "";
+    document.getElementById("kandungan-pembentangan").style.display = "none";
+    document.getElementById("skrin-kunci").style.display = "block";
   }
 
-  function ambilJumlahAhliAktifRealtime() {
-    fetch(API_URL, { method: "POST", body: JSON.stringify({ action: "getStats" }) })
-    .then(r => r.json())
-    .then(res => {
-      if(res.totalAktif !== undefined) {
-        document.getElementById("totalAhliAktif").innerText = res.totalAktif + " Orang";
-      } else {
-        document.getElementById("totalAhliAktif").innerText = "0 Orang";
-      }
-    }).catch(() => {
-      document.getElementById("totalAhliAktif").innerText = "Ralat Data";
-    });
+  function tukarSlaid(namaSlaid) {
+    // Sembunyikan semua slaid
+    const semuaSlaid = document.querySelectorAll(".slaid-konten");
+    semuaSlaid.forEach(el => el.style.display = "none");
+
+    // Nyahaktif semua butang tab
+    const semuaTab = document.querySelectorAll(".nav-tabs-custom .btn");
+    semuaTab.forEach(btn => btn.classList.remove("active"));
+
+    // Paparkan slaid yang dipilih & aktifkan tab
+    document.getElementById("slaid-" + namaSlaid).style.display = "block";
+    document.getElementById("tab-" + namaSlaid).classList.add("active");
   }
-
-  function submitRegister() {
-    let id = document.getElementById("regId").value.trim();
-    let pass = document.getElementById("regPass").value.trim();
-    if(!id || pass.length < 6) return alert("Sila isi ID dan password (min 6 aksara)!");
-
-    let btn = document.getElementById("btnRegister");
-    btn.disabled = true; btn.innerText = "Memproses...";
-
-    fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({ action: "registerPassword", memberId: id, password: pass })
-    })
-    .then(r => r.json())
-    .then(res => {
-      btn.disabled = false; btn.innerText = "Daftar Akaun";
-      if(res.status === "SUCCESS") {
-        alert("Pendaftaran berjaya! Sila guna menu Log Masuk.");
-        tukarMenu('login');
-      } else {
-        alert(res.message || "ID tidak dijumpai dalam rekod kariah surau.");
-      }
-    }).catch(() => { btn.disabled = false; btn.innerText = "Daftar Akaun"; });
-  }
-
-  function submitLupa() {
-    let id = document.getElementById("lupaId").value.trim();
-    let tel = document.getElementById("lupaTel").value.trim();
-    let nPass = document.getElementById("lupaNewPass").value.trim();
-    if(!id || !tel || !nPass) return alert("Sila isi semua maklumat!");
-
-    let btn = document.getElementById("btnLupa");
-    btn.disabled = true; btn.innerText = "Mengemaskini...";
-
-    fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({ action: "lupaPassword", memberId: id, telefon: tel, newPassword: nPass })
-    })
-    .then(r => r.json())
-    .then(res => {
-      btn.disabled = false; btn.innerText = "Kemas Kini Password";
-      if(res.status === "SUCCESS") {
-        alert("Kata laluan anda berjaya dikemas kini! Sila log masuk.");
-        tukarMenu('login');
-      } else if(res.status === "MISMATCH") {
-        alert("No. telefon tidak sepadan dengan rekod ID ahli.");
-      } else {
-        alert("ID Ahli tidak dijumpai.");
-      }
-    }).catch(() => { btn.disabled = false; btn.innerText = "Kemas Kini Password"; });
-  }
-
-  function loadDashboard(user, waris) {
-    document.getElementById("dashId").innerText = user.memberId;
-    document.getElementById("dashNama").innerText = user.nama;
-    document.getElementById("dashTamat").innerText = user.tarikhTamat;
-    
-    let b = document.getElementById("dashStatus");
-    b.innerText = user.status;
-    b.className = user.status === "AKTIF" ? "status-badge status-aktif" : "status-badge status-tamat";
-
-    document.getElementById("warisNama").value = waris.warisNama || "";
-    document.getElementById("warisHubungan").value = waris.warisHubungan || "";
-
-    let html = "";
-    for(let i=0; i<6; i++) {
-      let t = waris.tanggungan[i] || {nama: "", hubungan: ""};
-      html += `
-        <div class="tanggungan-row row g-2 align-items-center">
-          <div class="col-1 text-muted small fw-bold text-center">${i+1}</div>
-          <div class="col-7"><input type="text" class="form-control form-control-sm text-uppercase t-nama" value="${t.nama}" placeholder="Nama"></div>
-          <div class="col-4">
-            <select class="form-select form-select-sm t-hub">
-              <option value="">- Hubungan -</option>
-              <option value="ISTERI" ${t.hubungan=='ISTERI'?'selected':''}>ISTERI</option>
-              <option value="ANAK" ${t.hubungan=='ANAK'?'selected':''}>ANAK</option>
-              <option value="IBU" ${t.hubungan=='IBU'?'selected':''}>IBU</option>
-              <option value="BAPA" ${t.hubungan=='BAPA'?'selected':''}>BAPA</option>
-            </select>
-          </div>
-        </div>`;
-    }
-    document.getElementById("tanggunganContainer").innerHTML = html;
-  }
-
-  function submitWaris() {
-    let tNama = document.querySelectorAll(".t-nama");
-    let tHub = document.querySelectorAll(".t-hub");
-    let list = [];
-    for(let i=0; i<6; i++) {
-      if(tNama[i].value.trim()) {
-        list.push({ nama: tNama[i].value.trim().toUpperCase(), hubungan: tHub[i].value });
-      }
-    }
-    
-    let btn = document.getElementById("btnWaris");
-    btn.disabled = true; btn.innerText = "Menyimpan...";
-
-    fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        action: "kemaskiniWaris", memberId: SESI_MEMBER_ID,
-        warisUtama: document.getElementById("warisNama").value.trim().toUpperCase(),
-        warisHubungan: document.getElementById("warisHubungan").value,
-        tanggungan: list
-      })
-    }).then(() => {
-      btn.disabled = false; btn.innerText = "Simpan Maklumat Waris & Tanggungan";
-      alert("Maklumat waris dan tanggungan berjaya disimpan ke tab 'WARIS'!");
-    }).catch(() => { btn.disabled = false; btn.innerText = "Simpan Maklumat Waris & Tanggungan"; });
-  }
-
-  function submitMohon() {
-    let nama = document.getElementById("mohonNama").value.trim();
-    let tel = document.getElementById("mohonTel").value.trim();
-    if(!nama || !tel) return alert("Sila lengkapkan borang.");
-
-    let btn = document.getElementById("btnMohon");
-    btn.disabled = true; btn.innerText = "Menghantar...";
-
-    fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({ action: "daftarAhliBaru", nama: nama, tel: tel })
-    }).then(() => {
-      btn.disabled = false; btn.innerText = "Hantar Borang";
-      alert("Permohonan dihantar! Sila tunggu kelulusan Admin Surau.");
-      tukarMenu('login');
-    }).catch(() => { btn.disabled = false; btn.innerText = "Hantar Borang"; });
-  }
-
-  function fetchAdminData() {
-    fetch(API_URL, { method: "POST", body: JSON.stringify({ action: "adminFetch" }) })
-    .then(r => r.json())
-    .then(res => {
-      let html = "";
-      res.senarai.forEach(p => {
-        let btn = p.status === "PENDING" ? `<button class="btn btn-xs btn-success fw-bold" onclick="approveAhli(${p.row}, '${p.nama}', '${p.tel}')">Sahkan & Bina ID</button>` : `<span class="badge bg-secondary">Selesai</span>`;
-        html += `<tr><td>${p.tarikh}</td><td>${p.nama}</td><td>${p.tel}</td><td>${btn}</td></tr>`;
-      });
-      document.getElementById("adminTableBody").innerHTML = html || '<tr><td colspan="4" class="text-center">Tiada permohonan baru.</td></tr>';
-    });
-  }
-
-  function approveAhli(row, nama, tel) {
-    if(!confirm("Adakah anda ingin mengesahkan keahlian " + nama + "?")) return;
-    fetch(API_URL, { method: "POST", body: JSON.stringify({ action: "adminApprove", row: row, nama: nama, tel: tel }) })
-    .then(r => r.json())
-    .then(res => {
-      alert("Ahli berjaya disahkan! ID baharu dijana: " + res.newId + ". Kata laluan lalai ahli ialah: 123456");
-      fetchAdminData();
-    });
-  }
-
-  function logout() { SESI_MEMBER_ID = ""; tukarMenu('login'); }
 </script>
 </body>
 </html>
